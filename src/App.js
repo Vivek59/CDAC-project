@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Home from "./components/pages/Home";
+import Navbar from "./components/pages/Navbar";
+import Login from "./components/pages/Login";
+import Footer from "./components/pages/Footer";
+import Registerprovider from "./components/pages/Registerprovider";
+
+import Register1 from "./components/pages/Register1";
+
+
 
 function App() {
+ const xyz=localStorage.getItem('user')
+ const [Demo, setDemo] = useState(xyz)
+ 
+ function loginHandler(){
+  setDemo(!Demo)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+ 
+ <Router>
+      <div>
+        <Navbar login={loginHandler} status={xyz}/>
+        <Switch>
+      
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register1} />
+          <Route path="/registerprovider" component={Registerprovider} />
+          {/* <Route path="/home" component={ HomePage } />  */}
+        </Switch>
+        <Footer /> 
+      </div>
+    </Router>
+
   );
 }
 
